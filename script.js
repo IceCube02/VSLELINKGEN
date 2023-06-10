@@ -1,7 +1,8 @@
-// Dark mode toggle functionality
-const darkModeToggle = document.getElementById('darkModeToggle');
-const body = document.body;
+document.addEventListener('DOMContentLoaded', () => {
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  const body = document.body;
 
-darkModeToggle.addEventListener('change', () => {
-  body.classList.toggle('dark-mode');
+  darkModeToggle.addEventListener('change', () => {
+    body.classList.toggle('dark-mode');
+  });
 });

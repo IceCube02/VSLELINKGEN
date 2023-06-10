@@ -6,7 +6,7 @@ const randomizeBtn = document.getElementById('randomizeBtn');
 randomizeBtn.addEventListener('click', async () => {
   try {
     // Fetch the data for Model 1
-    const data = await fetchData('TKlinks.txt');
+    const data = await fetchData('TWlinks.txt');
 
     // Randomize the data
     const randomizedData = shuffleArray(data);

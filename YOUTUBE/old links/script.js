@@ -2,20 +2,11 @@
 
 // Add event listener to the randomize button
 const randomizeBtn = document.getElementById('randomizeBtn');
-const resetBtn = document.getElementById('resetBtn');
 
 randomizeBtn.addEventListener('click', async () => {
   try {
     // Fetch the data for Model 1
-    let data = [];
-    const storedData = localStorage.getItem('randomizedData');
-    
-    if (storedData) {
-      data = JSON.parse(storedData);
-    } else {
-      data = await fetchData('ytoldlinks.txt');
-      localStorage.setItem('randomizedData', JSON.stringify(data));
-    }
+    const data = await fetchData('ytlinks.txt');
 
     // Randomize the data
     const randomizedData = shuffleArray(data);
@@ -25,11 +16,6 @@ randomizeBtn.addEventListener('click', async () => {
   } catch (error) {
     console.error('Error:', error);
   }
-});
-
-resetBtn.addEventListener('click', () => {
-  localStorage.removeItem('randomizedData');
-  location.reload();
 });
 
 // Fetch the data from the desired source
@@ -59,10 +45,7 @@ function displayRandomData(data) {
   const dataList = document.getElementById('dataList');
   dataList.innerHTML = '';
 
-  const numItemsInput = document.getElementById('numItemsInput');
-  const numItems = numItemsInput.value;
-
-  const limitedData = data.slice(0, numItems);
+  const limitedData = data.slice(0, 5); // Limit the data to five items
 
   const uniqueItems = new Set(); // Set to store unique items
 
@@ -91,6 +74,7 @@ function displayRandomData(data) {
           copyToClipboard(item);
           copyBtn.classList.add('copied');
           copyBtn.textContent = 'Copied!';
+          listItem.classList.add('used'); // Add 'used' class to indicate the item has been copied
           setTimeout(() => {
             copyBtn.textContent = 'Copy';
             copyBtn.classList.remove('copied');
@@ -101,8 +85,15 @@ function displayRandomData(data) {
         const openLinkBtn = document.createElement('button');
         openLinkBtn.textContent = 'Open in New Tab';
         openLinkBtn.classList.add('open-link-btn');
-        openLinkBtn.addEventListener('click', () => {
-          openInNewTab(item);
+        openLinkBtn.addEventListener('click', (event) => {
+          if (event.ctrlKey || event.metaKey) {
+            // If Ctrl key (Windows) or Command key (Mac) is pressed, open link in new tab without losing focus
+            openInNewTabWithoutLosingFocus(item);
+          } else {
+            // Otherwise, open link in new tab and switch focus to it
+            openInNewTab(item);
+          }
+          listItem.classList.add('used'); // Add 'used' class to indicate the item has been opened
         });
         listItem.appendChild(openLinkBtn);
 
@@ -123,19 +114,23 @@ function displayRandomData(data) {
   } else {
     openAllBtn.style.display = 'none';
   }
-
-  const messageContainer = document.getElementById('messageContainer');
-  messageContainer.textContent = limitedData.length === 0 ? 'All data has been used.' : '';
 }
 
 // Copy text to clipboard
 function copyToClipboard(text) {
-  const tempInput = document.createElement('textarea');
+  const tempInput = document.createElement('input');
   tempInput.value = text;
   document.body.appendChild(tempInput);
   tempInput.select();
+  tempInput.setSelectionRange(0, 99999);
   document.execCommand('copy');
   document.body.removeChild(tempInput);
+}
+
+// Open link in new tab without losing focus on the current page
+function openInNewTabWithoutLosingFocus(url) {
+  const newTab = window.open('about:blank', '_blank');
+  newTab.location.href = url;
 }
 
 // Open link in new tab
@@ -144,3 +139,17 @@ function openInNewTab(url) {
   newTab.focus();
 }
 
+// Add hidden Easter egg
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'E' && event.ctrlKey && event.shiftKey) {
+    const hiddenEasterEgg = document.querySelector('.hidden-easter-egg');
+    hiddenEasterEgg.style.display = 'block';
+    surpriseUser();
+  }
+});
+
+// Function to surprise the user
+function surpriseUser() {
+  // Add your surprising code here
+  alert('Surprise! You found the Easter egg!');
+}

@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Randomized Data</title>
+  <title>SMC TWITTER</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #333;
+      background-color: #222;
       color: #fff;
       margin: 0;
       padding: 0;
+      background-image: url("background-image.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
     }
 
     .container {
       max-width: 1000px;
       margin: 0 auto;
       padding: 20px;
-      background-color: #424242;
-      border: 1px solid #ccc;
+      background: linear-gradient(135deg, #360033, #0b8793);
       border-radius: 4px;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
 
     .title-image {
@@ -26,6 +29,9 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 20px;
+      color: rgb(245, 89, 89);
+      font-size: 24px;
+      letter-spacing: 2px;
     }
 
     .title-image img {
@@ -34,13 +40,15 @@
     }
 
     .generate-btn {
-      background-color: #ff8300;
+      background-color: #ff5e00;
       color: #fff;
       padding: 10px 20px;
       border: none;
       border-radius: 4px;
       cursor: pointer;
       margin-right: 10px;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
     }
 
     .generate-btn:not([disabled]):hover {
@@ -62,7 +70,7 @@
     .data-list-item {
       margin-bottom: 10px;
       padding: 10px;
-      background-color: #525252;
+      background-color: #333;
       border-radius: 4px;
       display: flex;
       align-items: center;
@@ -71,6 +79,7 @@
     .data-list-item span {
       flex-grow: 1;
       overflow-wrap: break-word;
+      word-break: break-all;
     }
 
     .copy-btn,
@@ -84,6 +93,7 @@
       cursor: pointer;
       margin-left: 10px;
       font-size: 14px;
+      transition: background-color 0.3s ease;
     }
 
     .copy-btn:hover,
@@ -100,9 +110,12 @@
       margin-bottom: 20px;
       text-align: center;
     }
-    
+    .used {
+      color: gray;
+    }
+
     /* Responsive Styles */
-    
+
     @media only screen and (max-width: 600px) {
       .container {
         padding: 10px;
@@ -119,26 +132,44 @@
         font-size: 12px;
         padding: 3px 8px;
       }
+      .data-list-item span {
+        word-break: normal;
+      }
     }
-    
+
+    .copy-btn.copied {
+      background-color: green;
+    }
+
+    /* Hidden Easter Egg */
+    .hidden-easter-egg {
+      display: none;
+    }
+
   </style>
 </head>
 <body>
   <div class="container">
     <h1 class="title-image">
-      <img src="yt.png" alt="Title Image">
-      SMC NEW YOUTUBE LINKS  
+      <img src="TWITTER.png" alt="Title Image">
+      SMC TWITTER LINKS  
     </h1>
-    <p class="text-above">Newer Links.</p>
+    <p class="text-above">Backup Links.</p>
     <div id="lastModified"></div>
 
     <div class="model-buttons">
       <button id="randomizeBtn" class="generate-btn">Generate Links</button>
     </div>
     <ul id="dataList" class="data-list"></ul>
-    <button id="openAllBtn" class="open-all-btn">Open All in New Tab</button>
+
     <div id="progressBar" class="progress-bar"></div>
+
+    <!-- Hidden Easter Egg -->
+    <div class="hidden-easter-egg">
+      Congratulations! You found the hidden Easter egg!
+    </div>
   </div>
   <script src="script.js"></script>
 </body>
 </html>
+
