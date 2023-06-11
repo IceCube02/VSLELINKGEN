@@ -67,21 +67,6 @@ function displayRandomData(data) {
         span.textContent = item;
         listItem.appendChild(span);
 
-        const copyBtn = document.createElement('button');
-        copyBtn.textContent = 'Copy';
-        copyBtn.classList.add('copy-btn');
-        copyBtn.addEventListener('click', () => {
-          copyToClipboard(item);
-          copyBtn.classList.add('copied');
-          copyBtn.textContent = 'Copied!';
-          listItem.classList.add('used'); // Add 'used' class to indicate the item has been copied
-          setTimeout(() => {
-            copyBtn.textContent = 'Copy';
-            copyBtn.classList.remove('copied');
-          }, 1300);
-        });
-        listItem.appendChild(copyBtn);
-
         const openLinkBtn = document.createElement('button');
         openLinkBtn.textContent = 'Open in New Tab';
         openLinkBtn.classList.add('open-link-btn');
@@ -114,17 +99,6 @@ function displayRandomData(data) {
   } else {
     openAllBtn.style.display = 'none';
   }
-}
-
-// Copy text to clipboard
-function copyToClipboard(text) {
-  const tempInput = document.createElement('input');
-  tempInput.value = text;
-  document.body.appendChild(tempInput);
-  tempInput.select();
-  tempInput.setSelectionRange(0, 99999);
-  document.execCommand('copy');
-  document.body.removeChild(tempInput);
 }
 
 // Open link in new tab without losing focus on the current page
